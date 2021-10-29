@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3411109626603442241
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4316607080766039758}
+  m_Layer: 0
+  m_Name: moveLocation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4316607080766039758
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3411109626603442241}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3730112974408110226}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3730112973644670259
 GameObject:
   m_ObjectHideFlags: 0
@@ -121,7 +151,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3730112974408110226}
-  - component: {fileID: 3730112974408110229}
+  - component: {fileID: 5539231633256981394}
   m_Layer: 0
   m_Name: ThreeCubes
   m_TagString: Untagged
@@ -143,10 +173,11 @@ Transform:
   - {fileID: 3730112975262614584}
   - {fileID: 3730112974741879381}
   - {fileID: 3730112973644670258}
+  - {fileID: 4316607080766039758}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3730112974408110229
+--- !u!114 &5539231633256981394
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -155,11 +186,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3730112974408110227}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ae97007648157f4f822b76c9cdf0705, type: 3}
+  m_Script: {fileID: 11500000, guid: 2b6a694d61fb2cc47a4aad936f45c3b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   blocks: {fileID: 3730112974408110226}
-  speed: 10
+  moveLocation: {fileID: 4316607080766039758}
+  speed: 0
 --- !u!1 &3730112974741879378
 GameObject:
   m_ObjectHideFlags: 0

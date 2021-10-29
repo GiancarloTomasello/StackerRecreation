@@ -34,7 +34,7 @@ public class CubeSpawner : MonoBehaviour
 
             Vector3 spawnLocation = new Vector3(0, gameObject.transform.position.y, 0);
             GameObject spanwedObj = Instantiate(cube, spawnLocation, Quaternion.identity);
-            Debug.Log("Cube location" + spanwedObj.transform.position);
+            //Debug.Log("Cube location" + spanwedObj.transform.position);
             //spanwedObj.transform.position = new Vector3(0, gameObject.transform.position.y , 0);
 
             gameObject.transform.position = new Vector3(0, gameObject.transform.position.y + spawnOffset, 0);
