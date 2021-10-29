@@ -35,7 +35,7 @@ public class CubeMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("Spacebar was placed");
+            //Debug.Log("Spacebar was placed");
             isMoving = false;
         }
 
@@ -51,7 +51,7 @@ public class CubeMovement : MonoBehaviour
                 direction = 1;
             }
 
-            blocks.transform.position = new Vector3(blocks.position.x + (direction * speed * Time.deltaTime), 0, 0);
+            blocks.transform.position = new Vector3(blocks.position.x + (direction * speed * Time.deltaTime), blocks.position.y, 0);
         } 
         else
         {
