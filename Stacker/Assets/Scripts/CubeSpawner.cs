@@ -15,17 +15,16 @@ public class CubeSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SpawnCube();
+        //SpawnCube();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-            SpawnCube();
+
     }
 
-    public void SpawnCube()
+    public int SpawnCube(int score)
     {
         if(score >= 0)
         {
@@ -42,6 +41,7 @@ public class CubeSpawner : MonoBehaviour
         {
             //Check if any cubes fell
         }
-        
+
+        return score;
     }
 }
