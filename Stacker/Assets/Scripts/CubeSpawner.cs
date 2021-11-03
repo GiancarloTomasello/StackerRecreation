@@ -15,7 +15,7 @@ public class CubeSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //SpawnCube();
+
     }
 
     // Update is called once per frame

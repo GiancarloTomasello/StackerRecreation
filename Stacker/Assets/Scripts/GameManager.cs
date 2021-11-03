@@ -47,8 +47,9 @@ public class GameManager : MonoBehaviour
         //Handle spawning
         while (score < sPrizeHeight)
         {
-            
+            yield return null;
         }
+        controlsEnabled = false;
         Debug.Log("Game playing done");
         yield return waitTime;
     }
@@ -74,7 +75,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && controlsEnabled)
         {
             spawnerScript.SpawnCube(score);
             score++;

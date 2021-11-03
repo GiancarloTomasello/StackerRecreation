@@ -25,7 +25,6 @@ public class CubeGridMovement : MonoBehaviour
     //The main movement logic will be covered in this function
     IEnumerator MovementCoroutine()
     {
-        Debug.Log("RunCorutine");
 
         if (gameObject.transform.position.x >= 3f)
         {
@@ -52,7 +51,6 @@ public class CubeGridMovement : MonoBehaviour
         } else
         {
             StopCoroutine(MovementCoroutine());
-            Debug.Log("Stop Movement");
         }
     }
 
