@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2967346111483454330}
   m_Layer: 0
   m_Name: Block_3L
-  m_TagString: Untagged
+  m_TagString: Blocks
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52,6 +52,8 @@ MonoBehaviour:
   speed: 0
   direction: 0
   canMove: 0
+  Spawner: {fileID: 0}
+  cubeSpawner: {fileID: 0}
 --- !u!1 &6096317365448253560
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,6 +335,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441c28214a8b23842b8800b47afc096a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cubeSpawner: {fileID: 0}
+  test: 0
 --- !u!1 &6096317366215270433
 GameObject:
   m_ObjectHideFlags: 0
@@ -502,6 +506,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441c28214a8b23842b8800b47afc096a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cubeSpawner: {fileID: 0}
+  test: 0
 --- !u!1 &6096317366583200998
 GameObject:
   m_ObjectHideFlags: 0
@@ -559,3 +565,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441c28214a8b23842b8800b47afc096a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cubeSpawner: {fileID: 0}
+  test: 0

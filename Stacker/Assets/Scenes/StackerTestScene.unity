@@ -579,6 +579,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1221400797}
   - component: {fileID: 1221400796}
+  - component: {fileID: 1221400798}
   m_Layer: 0
   m_Name: CubeSpawner
   m_TagString: Spawner
@@ -604,6 +605,7 @@ MonoBehaviour:
   cube_3L: {fileID: 6096317365386279297, guid: 554e894b6dd841a41bee853dce48c8d0, type: 3}
   cube_2L: {fileID: 6096317365386279297, guid: 554e894b6dd841a41bee853dce48c8d0, type: 3}
   cube_1L: {fileID: 6096317365386279297, guid: 554e894b6dd841a41bee853dce48c8d0, type: 3}
+  blockTriggerRef: {fileID: 0}
 --- !u!4 &1221400797
 Transform:
   m_ObjectHideFlags: 0
@@ -619,6 +621,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1221400798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1221400795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 441c28214a8b23842b8800b47afc096a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cubeSpawner: {fileID: 0}
+  test: 0
 --- !u!1 &1588521321
 GameObject:
   m_ObjectHideFlags: 0
