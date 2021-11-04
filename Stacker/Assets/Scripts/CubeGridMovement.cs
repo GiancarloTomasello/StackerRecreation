@@ -12,12 +12,18 @@ public class CubeGridMovement : MonoBehaviour
     [SerializeField]
     private bool canMove;
 
+    public GameObject Spawner;
+    public CubeSpawner cubeSpawner;
     // Start is called before the first frame update
     void Start()
     {
         speed = 1f;
         direction = 1;
         canMove = true;
+
+
+        Spawner = GameObject.FindWithTag("Spawner");
+        cubeSpawner = Spawner.GetComponent<CubeSpawner>();
 
         StartCoroutine(MovementCoroutine());
     }
@@ -59,7 +65,9 @@ public class CubeGridMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             canMove = false;
+            cubeSpawner.CheckCubes();
         }
     }
+
 
 }

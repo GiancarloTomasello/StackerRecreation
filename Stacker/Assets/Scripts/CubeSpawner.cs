@@ -11,11 +11,19 @@ public class CubeSpawner : MonoBehaviour
     [SerializeField]
     private int score;
 
-    public GameObject cube;
+    public GameObject cube_3L;
+    public GameObject cube_2L;
+    public GameObject cube_1L;
+
+    public BlockTrigger blockTriggerRef;
+
+    //[SerializeField]
+    //private GameObject spawnedObj;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        blockTriggerRef = gameObject.GetComponent<BlockTrigger>(); 
     }
 
     // Update is called once per frame
@@ -29,12 +37,18 @@ public class CubeSpawner : MonoBehaviour
         if(score >= 0)
         {
             //Don't check for bottom cubes
-            Debug.Log(gameObject.transform.position);
 
             Vector3 spawnLocation = new Vector3(0, gameObject.transform.position.y, 0);
-            GameObject spanwedObj = Instantiate(cube, spawnLocation, Quaternion.identity);
-            //Debug.Log("Cube location" + spanwedObj.transform.position);
-            //spanwedObj.transform.position = new Vector3(0, gameObject.transform.position.y , 0);
+
+            GameObject spawnedObj = Instantiate(cube_3L, spawnLocation, Quaternion.identity) as GameObject;
+            spawnedObj.GetComponent<BlockTrigger>().cubeSpawner = this;
+
+            //Spawned object .parent.Get Component?
+
+           // BlockTrigger blockScript = spawnedObj.GetComponent<BlockTrigger>();
+            Debug.Log("test:  " + spawnedObj.GetComponent<BlockTrigger>().cubeSpawner);
+
+
 
             gameObject.transform.position = new Vector3(0, gameObject.transform.position.y + spawnOffset, 0);
         } else
@@ -43,5 +57,15 @@ public class CubeSpawner : MonoBehaviour
         }
 
         return score;
+    }
+
+    public void CheckCubes()
+    {
+        Debug.Log("Checking the cubes...");
+
+//        Debug.Log(spawnedObj);
+
+
+
     }
 }
