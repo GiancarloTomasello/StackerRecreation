@@ -15,6 +15,10 @@ public class CubeSpawner : MonoBehaviour
     public GameObject cube_2L;
     public GameObject cube_1L;
 
+    public GameObject blockChecker;
+
+    private GameObject spawnedObj;
+
     public BlockTrigger blockTriggerRef;
 
     //[SerializeField]
@@ -40,7 +44,7 @@ public class CubeSpawner : MonoBehaviour
 
             Vector3 spawnLocation = new Vector3(0, gameObject.transform.position.y, 0);
 
-            var spawnedObj = (GameObject) Instantiate(cube_3L, spawnLocation, Quaternion.identity) as GameObject;
+            spawnedObj = (GameObject) Instantiate(cube_3L, spawnLocation, Quaternion.identity) as GameObject;
             blockTriggerRef = spawnedObj.GetComponentInChildren(typeof(BlockTrigger)) as BlockTrigger;
 
            // Debug.Log("Test: " + blockTriggerRef.test);
@@ -60,12 +64,37 @@ public class CubeSpawner : MonoBehaviour
         return score;
     }
 
-    public void CheckCubes()
+    public int CheckCubes()
     {
-        Debug.Log("Checking the cubes...");
-        Debug.Log("Cubes " + blockTriggerRef.CubesCheck());
+        return blockTriggerRef.CubesCheck();
+    }
 
+    public void RemoveCubes(int size)
+    {
+        GameObject[] blockCheckers = new GameObject[size];
+        Debug.Log("Remove Cubes array size: " + blockCheckers.Length);
 
+        if(blockCheckers.Length == 3)
+        {
+            for(int i = -1; i < 2; i++)
+            {
+                var spawnLocation = new Vector3((spawnedObj.transform.position.x + i), spawnedObj.transform.position.y-1, 0);
+                Debug.Log("Spawn location: " + spawnLocation);
+                blockCheckers[i+1] = (GameObject)Instantiate(blockChecker, spawnLocation, Quaternion.identity) as GameObject;
+            }
 
+        Debug.Log("Array Test: " + blockCheckers[1]);
+        } else if (blockCheckers.Length == 2)
+        {
+
+        } else if (blockCheckers.Length == 1)
+        {
+
+        }
+
+        foreach(GameObject objTest in blockCheckers)
+        {
+            Destroy(objTest);
+        }
     }
 }

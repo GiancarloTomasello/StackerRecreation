@@ -7,7 +7,7 @@ public class BlockTrigger : MonoBehaviour
 
     public CubeSpawner cubeSpawner;
 
-    private int numOfCubesBelow;
+    private int missingCubes;
 
     public int test;
 
@@ -16,27 +16,27 @@ public class BlockTrigger : MonoBehaviour
 
     void Awake()
     {
-        numOfCubesBelow = 0;
+        missingCubes = 3;
         test = 10;
     }
 
 
     public int CubesCheck()
     {
-        Debug.Log("numOfCubes: " + numOfCubesBelow);
-        return numOfCubesBelow;
+        Debug.Log("numOfCubes: " + missingCubes);
+        return missingCubes;
     }
 
     void OnTriggerEnter(Collider other)
     {
         Debug.Log("Block Trigger Entered!");
-        ++numOfCubesBelow;
+        --missingCubes;
     }
 
     void OnTriggerExit(Collider other)
     {
         Debug.Log("Block Collider Exit!");
-        --numOfCubesBelow;
+        ++missingCubes;
     }
 
 

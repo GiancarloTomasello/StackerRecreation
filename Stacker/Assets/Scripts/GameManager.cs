@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     private bool controlsEnabled;
 
     public int score;
+    public int size;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
         lPrizeHeight = 12;
         waitTime = 0.5f;
         score = 0;
+        size = 3;
 
         controlsEnabled = true;
 
@@ -77,8 +79,12 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && controlsEnabled)
         {
-            spawnerScript.CheckCubes();
-            spawnerScript.SpawnCube(score);
+            int missingCubes = spawnerScript.CheckCubes();
+            spawnerScript.RemoveCubes(size);
+
+            Debug.Log("Cube Length is now: " + (size - missingCubes));
+
+            spawnerScript.SpawnCube(size);
 
             score++;
         }
