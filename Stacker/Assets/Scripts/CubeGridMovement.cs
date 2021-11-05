@@ -65,7 +65,7 @@ public class CubeGridMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             canMove = false;
-            cubeSpawner.CheckCubes();
+            //cubeSpawner.CheckCubes();
         }
     }
 

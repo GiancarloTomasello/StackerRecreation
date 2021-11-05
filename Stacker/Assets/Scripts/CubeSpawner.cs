@@ -41,6 +41,10 @@ public class CubeSpawner : MonoBehaviour
             Vector3 spawnLocation = new Vector3(0, gameObject.transform.position.y, 0);
 
             var spawnedObj = (GameObject) Instantiate(cube_3L, spawnLocation, Quaternion.identity) as GameObject;
+            blockTriggerRef = spawnedObj.GetComponentInChildren(typeof(BlockTrigger)) as BlockTrigger;
+
+           // Debug.Log("Test: " + blockTriggerRef.test);
+
 
             //Need to get the component for CHECKCUBES from the children
             //Try this https://docs.unity3d.com/ScriptReference/Component.GetComponentsInChildren.html
@@ -59,8 +63,7 @@ public class CubeSpawner : MonoBehaviour
     public void CheckCubes()
     {
         Debug.Log("Checking the cubes...");
-
-//        Debug.Log(spawnedObj);
+        Debug.Log("Cubes " + blockTriggerRef.CubesCheck());
 
 
 

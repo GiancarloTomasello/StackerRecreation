@@ -12,33 +12,31 @@ public class BlockTrigger : MonoBehaviour
     public int test;
 
     // Start is called before the first frame update
-    void Start()
+
+
+    void Awake()
     {
         numOfCubesBelow = 0;
         test = 10;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public int CubesCheck()
     {
+        Debug.Log("numOfCubes: " + numOfCubesBelow);
         return numOfCubesBelow;
     }
 
     void OnTriggerEnter(Collider other)
     {
         Debug.Log("Block Trigger Entered!");
-        numOfCubesBelow++;
+        ++numOfCubesBelow;
     }
 
     void OnTriggerExit(Collider other)
     {
         Debug.Log("Block Collider Exit!");
-        numOfCubesBelow--;
+        --numOfCubesBelow;
     }
 
 
