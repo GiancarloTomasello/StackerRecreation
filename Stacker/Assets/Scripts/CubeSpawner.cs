@@ -11,6 +11,9 @@ public class CubeSpawner : MonoBehaviour
     [SerializeField]
     private int score;
 
+    [SerializeField]
+    private bool firstCheck;
+
     public GameObject cube_3L;
     public GameObject cube_2L;
     public GameObject cube_1L;
@@ -19,6 +22,7 @@ public class CubeSpawner : MonoBehaviour
 
     private GameObject spawnedObj;
 
+    [SerializeField]
     public BlockTrigger blockTriggerRef;
 
     //[SerializeField]
@@ -27,7 +31,13 @@ public class CubeSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        blockTriggerRef = gameObject.GetComponent<BlockTrigger>(); 
+        blockTriggerRef = gameObject.GetComponent<BlockTrigger>();
+        firstCheck = true;
+    }
+
+    void Awake()
+    {
+        firstCheck = true;
     }
 
     // Update is called once per frame
@@ -72,15 +82,16 @@ public class CubeSpawner : MonoBehaviour
     public void RemoveCubes(int size)
     {
         GameObject[] blockCheckers = new GameObject[size];
-        Debug.Log("Remove Cubes array size: " + blockCheckers.Length);
+        //Debug.Log("Remove Cubes array size: " + blockCheckers.Length);
 
         if(blockCheckers.Length == 3)
         {
             for(int i = -1; i < 2; i++)
             {
                 var spawnLocation = new Vector3((spawnedObj.transform.position.x + i), spawnedObj.transform.position.y-1, 0);
-                Debug.Log("Spawn location: " + spawnLocation);
+                //Debug.Log("Spawn location: " + spawnLocation);
                 blockCheckers[i+1] = (GameObject)Instantiate(blockChecker, spawnLocation, Quaternion.identity) as GameObject;
+                blockCheckers[i + 1].GetComponent<BlockBelowCheck>().setBlockNumber(i + 1);
             }
 
         Debug.Log("Array Test: " + blockCheckers[1]);
@@ -94,7 +105,14 @@ public class CubeSpawner : MonoBehaviour
 
         foreach(GameObject objTest in blockCheckers)
         {
-            Destroy(objTest);
+            if (objTest.GetComponent<BlockBelowCheck>().getIsBlockBelow() == false && firstCheck == false)
+            {
+                Debug.Log("Remove a block");
+               //Debug.Log("IsBlockBelow: " + objTest.GetComponent<BlockBelowCheck>().getIsBlockBelow());
+               //Destroy(objTest);
+            }
+
+            firstCheck = false;
         }
     }
 }

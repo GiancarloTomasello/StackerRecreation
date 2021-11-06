@@ -23,19 +23,19 @@ public class BlockTrigger : MonoBehaviour
 
     public int CubesCheck()
     {
-        Debug.Log("numOfCubes: " + missingCubes);
+        //Debug.Log("numOfCubes: " + missingCubes);
         return missingCubes;
     }
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Block Trigger Entered!");
+        //Debug.Log("Block Trigger Entered!");
         --missingCubes;
     }
 
     void OnTriggerExit(Collider other)
     {
-        Debug.Log("Block Collider Exit!");
+        //Debug.Log("Block Collider Exit!");
         ++missingCubes;
     }
 

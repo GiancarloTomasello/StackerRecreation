@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
         yield return StartCoroutine(GamePlaying());
         yield return StartCoroutine(GameEnding());
 
-        Debug.Log("Game Loop done");
+       // Debug.Log("Game Loop done");
 
     }
 
@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
             int missingCubes = spawnerScript.CheckCubes();
             spawnerScript.RemoveCubes(size);
 
-            Debug.Log("Cube Length is now: " + (size - missingCubes));
+            //Debug.Log("Cube Length is now: " + (size - missingCubes));
 
             spawnerScript.SpawnCube(size);
 
