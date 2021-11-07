@@ -47,11 +47,12 @@ public class GameManager : MonoBehaviour
     private IEnumerator GamePlaying()
     {
         //Handle spawning
-        while (score < sPrizeHeight)
+        while (score < sPrizeHeight && size > 0)
         {
             yield return null;
         }
         controlsEnabled = false;
+
         Debug.Log("Game playing done");
         yield return waitTime;
     }
@@ -59,6 +60,13 @@ public class GameManager : MonoBehaviour
     private IEnumerator GameEnding()
     {
         //Bring up end screen
+        if(score == sPrizeHeight)
+        {
+            Debug.Log("Game Lost");
+        } else
+        {
+            Debug.Log("Game Lost");
+        }
         Debug.Log("Game End done");
         yield return null;
     }
@@ -80,15 +88,16 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && controlsEnabled)
         {
             //Remove any cubed if needed
-            spawnerScript.RemoveCubes(score);
+            size -= spawnerScript.RemoveCubes();
             score++;
 
-            //Debug.Log("Cube Length is now: " + (size - missingCubes));
+            if (size > 0)
+            {
+                spawnerScript.SpawnCube(size);
+            }
 
-            spawnerScript.SpawnCube(size);
 
-            score++;
         }
-            
+        Debug.Log(size);
     }
 }

@@ -71,9 +71,9 @@ public class CubeSpawner : MonoBehaviour
         return blockTriggerRef.CubesCheck();
     }
 
-    public void RemoveCubes(int score)
+    public int RemoveCubes()
     {
-        //Debug.Log("Remove Cubes array size: " + blockCheckers.Length);
+        int cubesRemoved = 0;
 
 
         for(int i = 0; i < blockCheckers.Length; i++)
@@ -83,12 +83,8 @@ public class CubeSpawner : MonoBehaviour
 
             if (firstCheck == false && blockCheckers[i].GetComponent<BlockBelowCheck>().getIsBlockBelow() == false)
             {
-                //Debug.Log("Remove a block");
-
-
-                //Debug.Log("IsBlockBelow " + i + ": " + blockCheckers[i].GetComponent<BlockBelowCheck>().getIsBlockBelow());
-
                 Destroy(spawnedObj.transform.GetChild(i).gameObject);
+                cubesRemoved++;
             }
 
             Destroy(blockCheckers[i]);
@@ -96,6 +92,7 @@ public class CubeSpawner : MonoBehaviour
 
         firstCheck = false;
 
+        return cubesRemoved;
     }
 
     private void SpawnTriggers(GameObject[] arr)
