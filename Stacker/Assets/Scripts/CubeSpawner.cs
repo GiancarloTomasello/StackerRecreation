@@ -21,6 +21,7 @@ public class CubeSpawner : MonoBehaviour
     public GameObject blockChecker;
 
     private GameObject spawnedObj;
+    private GameObject[] blockCheckers;
 
     [SerializeField]
     public BlockTrigger blockTriggerRef;
@@ -33,6 +34,7 @@ public class CubeSpawner : MonoBehaviour
     {
         blockTriggerRef = gameObject.GetComponent<BlockTrigger>();
         firstCheck = true;
+
     }
 
     void Awake()
@@ -46,32 +48,22 @@ public class CubeSpawner : MonoBehaviour
 
     }
 
-    public int SpawnCube(int score)
+    public void SpawnCube(int size)
     {
-        if(score >= 0)
-        {
-            //Don't check for bottom cubes
+ 
+        //Don't check for bottom cubes
 
-            Vector3 spawnLocation = new Vector3(0, gameObject.transform.position.y, 0);
+        Vector3 spawnLocation = new Vector3(0, gameObject.transform.position.y, 0);
 
-            spawnedObj = (GameObject) Instantiate(cube_3L, spawnLocation, Quaternion.identity) as GameObject;
-            blockTriggerRef = spawnedObj.GetComponentInChildren(typeof(BlockTrigger)) as BlockTrigger;
+        spawnedObj = (GameObject) Instantiate(cube_3L, spawnLocation, Quaternion.identity) as GameObject;
+        blockTriggerRef = spawnedObj.GetComponentInChildren(typeof(BlockTrigger)) as BlockTrigger;
 
-           // Debug.Log("Test: " + blockTriggerRef.test);
+        gameObject.transform.position = new Vector3(0, gameObject.transform.position.y + spawnOffset, 0);
 
-
-            //Need to get the component for CHECKCUBES from the children
-            //Try this https://docs.unity3d.com/ScriptReference/Component.GetComponentsInChildren.html
-
-
-
-            gameObject.transform.position = new Vector3(0, gameObject.transform.position.y + spawnOffset, 0);
-        } else
-        {
-            //Check if any cubes fell
-        }
-
-        return score;
+        blockCheckers = new GameObject[size];
+        SpawnTriggers(blockCheckers);
+        
+        return;
     }
 
     public int CheckCubes()
@@ -79,40 +71,48 @@ public class CubeSpawner : MonoBehaviour
         return blockTriggerRef.CubesCheck();
     }
 
-    public void RemoveCubes(int size)
+    public void RemoveCubes(int score)
     {
-        GameObject[] blockCheckers = new GameObject[size];
         //Debug.Log("Remove Cubes array size: " + blockCheckers.Length);
 
-        if(blockCheckers.Length == 3)
+
+        for(int i = 0; i < blockCheckers.Length; i++)
         {
-            for(int i = -1; i < 2; i++)
+
+            Debug.Log("Block Below Check: " + blockCheckers[i].GetComponent<BlockBelowCheck>().getIsBlockBelow());
+
+            if (firstCheck == false && blockCheckers[i].GetComponent<BlockBelowCheck>().getIsBlockBelow() == false)
             {
-                var spawnLocation = new Vector3((spawnedObj.transform.position.x + i), spawnedObj.transform.position.y-1, 0);
-                //Debug.Log("Spawn location: " + spawnLocation);
-                blockCheckers[i+1] = (GameObject)Instantiate(blockChecker, spawnLocation, Quaternion.identity) as GameObject;
-                blockCheckers[i + 1].GetComponent<BlockBelowCheck>().setBlockNumber(i + 1);
+                //Debug.Log("Remove a block");
+
+
+                //Debug.Log("IsBlockBelow " + i + ": " + blockCheckers[i].GetComponent<BlockBelowCheck>().getIsBlockBelow());
+
+                Destroy(spawnedObj.transform.GetChild(i).gameObject);
             }
 
-        Debug.Log("Array Test: " + blockCheckers[1]);
-        } else if (blockCheckers.Length == 2)
-        {
-
-        } else if (blockCheckers.Length == 1)
-        {
-
+            Destroy(blockCheckers[i]);
         }
 
-        foreach(GameObject objTest in blockCheckers)
-        {
-            if (objTest.GetComponent<BlockBelowCheck>().getIsBlockBelow() == false && firstCheck == false)
-            {
-                Debug.Log("Remove a block");
-               //Debug.Log("IsBlockBelow: " + objTest.GetComponent<BlockBelowCheck>().getIsBlockBelow());
-               //Destroy(objTest);
-            }
+        firstCheck = false;
 
-            firstCheck = false;
-        }
     }
+
+    private void SpawnTriggers(GameObject[] arr)
+    {
+
+        for (int i = -1; i < arr.Length - 1; i++)
+        {
+            var spawnLocation = new Vector3((spawnedObj.transform.position.x + i), spawnedObj.transform.position.y - 1, 0);
+            //Debug.Log("Spawn location: " + spawnLocation);
+
+            var tempTrigger = (GameObject)Instantiate(blockChecker, spawnLocation, Quaternion.identity) as GameObject;
+            tempTrigger.transform.parent = spawnedObj.transform;
+            arr[i + 1] = tempTrigger;
+            arr[i + 1].GetComponent<BlockBelowCheck>().setBlockNumber(i + 1);
+        }
+
+        return;
+    }
+
 }

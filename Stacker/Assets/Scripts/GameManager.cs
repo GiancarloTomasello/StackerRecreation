@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator GameStarting()
     {
         // Spawn Cube and disable controls
-        spawnerScript.SpawnCube(score);
+        spawnerScript.SpawnCube(size);
         Debug.Log("Game Start done");
         yield return waitTime;
         
@@ -79,8 +79,9 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && controlsEnabled)
         {
-            int missingCubes = spawnerScript.CheckCubes();
-            spawnerScript.RemoveCubes(size);
+            //Remove any cubed if needed
+            spawnerScript.RemoveCubes(score);
+            score++;
 
             //Debug.Log("Cube Length is now: " + (size - missingCubes));
 
