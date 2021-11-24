@@ -11,6 +11,8 @@ public class CubeGridMovement : MonoBehaviour
     private int direction;
     [SerializeField]
     private bool canMove;
+    [SerializeField]
+    private float moveOffset;
 
     public GameObject Spawner;
     public CubeSpawner cubeSpawner;
@@ -20,7 +22,7 @@ public class CubeGridMovement : MonoBehaviour
         speed = 1f;
         direction = 1;
         canMove = true;
-
+        moveOffset = 1.15f;
 
         Spawner = GameObject.FindWithTag("Spawner");
         cubeSpawner = Spawner.GetComponent<CubeSpawner>();
@@ -32,17 +34,17 @@ public class CubeGridMovement : MonoBehaviour
     IEnumerator MovementCoroutine()
     {
 
-        if (gameObject.transform.position.x >= 3f)
+        if (gameObject.transform.position.x >= 3.6f)
         {
             direction = -1;
         }
         else if (
-          gameObject.transform.position.x <= -3f)
+          gameObject.transform.position.x <= -3.6f)
         {
             direction = 1;
         }
 
-        gameObject.transform.Translate(new Vector3(direction * 1f, 0, 0), Space.World);
+        gameObject.transform.Translate(new Vector3(direction * moveOffset, 0, 0), Space.World);
 
         yield return new WaitForSeconds(speed);
         movement();

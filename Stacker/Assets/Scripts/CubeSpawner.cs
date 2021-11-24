@@ -50,12 +50,23 @@ public class CubeSpawner : MonoBehaviour
 
     public void SpawnCube(int size)
     {
- 
+        GameObject objectToSpawn = cube_3L;
         //Don't check for bottom cubes
+        if(size == 3)
+        {
+            objectToSpawn = cube_3L;
+        } else if(size == 2)
+        {
+            objectToSpawn = cube_2L;
+        }
+        else if(size == 1)
+        {
+            objectToSpawn = cube_1L;
+        }
 
         Vector3 spawnLocation = new Vector3(0, gameObject.transform.position.y, 0);
 
-        spawnedObj = (GameObject) Instantiate(cube_3L, spawnLocation, Quaternion.identity) as GameObject;
+        spawnedObj = (GameObject) Instantiate(objectToSpawn, spawnLocation, Quaternion.identity) as GameObject;
         blockTriggerRef = spawnedObj.GetComponentInChildren(typeof(BlockTrigger)) as BlockTrigger;
 
         gameObject.transform.position = new Vector3(0, gameObject.transform.position.y + spawnOffset, 0);
@@ -79,7 +90,7 @@ public class CubeSpawner : MonoBehaviour
         for(int i = 0; i < blockCheckers.Length; i++)
         {
 
-            Debug.Log("Block Below Check: " + blockCheckers[i].GetComponent<BlockBelowCheck>().getIsBlockBelow());
+            //Debug.Log("Block Below Check: " + blockCheckers[i].GetComponent<BlockBelowCheck>().getIsBlockBelow());
 
             if (firstCheck == false && blockCheckers[i].GetComponent<BlockBelowCheck>().getIsBlockBelow() == false)
             {
@@ -98,15 +109,15 @@ public class CubeSpawner : MonoBehaviour
     private void SpawnTriggers(GameObject[] arr)
     {
 
-        for (int i = -1; i < arr.Length - 1; i++)
+        for (int i = 0; i < arr.Length; i++)
         {
-            var spawnLocation = new Vector3((spawnedObj.transform.position.x + i), spawnedObj.transform.position.y - 1, 0);
+            var spawnLocation = new Vector3((spawnedObj.transform.position.x + (i*1.15f)), spawnedObj.transform.position.y - 1, 0);
             //Debug.Log("Spawn location: " + spawnLocation);
 
             var tempTrigger = (GameObject)Instantiate(blockChecker, spawnLocation, Quaternion.identity) as GameObject;
             tempTrigger.transform.parent = spawnedObj.transform;
-            arr[i + 1] = tempTrigger;
-            arr[i + 1].GetComponent<BlockBelowCheck>().setBlockNumber(i + 1);
+            arr[i] = tempTrigger;
+            arr[i].GetComponent<BlockBelowCheck>().setBlockNumber(i);
         }
 
         return;
