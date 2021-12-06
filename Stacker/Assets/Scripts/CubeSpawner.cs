@@ -10,6 +10,7 @@ public class CubeSpawner : MonoBehaviour
 
     [SerializeField]
     private int score;
+    private int cubesize;
 
     [SerializeField]
     private bool firstCheck;
@@ -34,23 +35,33 @@ public class CubeSpawner : MonoBehaviour
     {
         blockTriggerRef = gameObject.GetComponent<BlockTrigger>();
         firstCheck = true;
+        score = 1;
+        cubesize = 3;
 
     }
 
     void Awake()
     {
+        blockTriggerRef = gameObject.GetComponent<BlockTrigger>();
         firstCheck = true;
+        score = 1;
+        cubesize = 3;
     }
 
-    // Update is called once per frame
-    void Update()
+    public int GetScore()
     {
+        return score;
+    }
 
+    public int GetSize()
+    {
+        return cubesize;
     }
 
     public void SpawnCube(int size)
     {
         GameObject objectToSpawn = cube_3L;
+        score++;
         //Don't check for bottom cubes
         if(size == 3)
         {
@@ -58,10 +69,12 @@ public class CubeSpawner : MonoBehaviour
         } else if(size == 2)
         {
             objectToSpawn = cube_2L;
+            cubesize = 2;
         }
         else if(size == 1)
         {
             objectToSpawn = cube_1L;
+            cubesize = 1;
         }
 
         Vector3 spawnLocation = new Vector3(0, gameObject.transform.position.y, 0);

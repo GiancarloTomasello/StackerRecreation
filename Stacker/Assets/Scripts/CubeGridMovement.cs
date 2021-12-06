@@ -6,6 +6,7 @@ public class CubeGridMovement : MonoBehaviour
 {
 
     public float speed;
+    public int size;
 
     [SerializeField]
     private int direction;
@@ -19,7 +20,7 @@ public class CubeGridMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        speed = 1f;
+
         direction = 1;
         canMove = true;
         moveOffset = 1.15f;
@@ -27,14 +28,32 @@ public class CubeGridMovement : MonoBehaviour
         Spawner = GameObject.FindWithTag("Spawner");
         cubeSpawner = Spawner.GetComponent<CubeSpawner>();
 
+        float speedFactor = cubeSpawner.GetScore() * 3;
+        float fraction = 1f / 20f;
+        speedFactor *= fraction;
+       // Debug.Log("SpeedFactor: " + speedFactor);
+        speed = (1 - speedFactor);
+        if(speed < fraction)
+        {
+            speed = fraction;
+        }
+       // Debug.Log("Speed: " + speed);
+
+        size = cubeSpawner.GetSize();
+
+
+
+
+       
         StartCoroutine(MovementCoroutine());
     }
 
-    //The main movement logic will be covered in this function
+
+    //The main movement logic will be covered in this functions
     IEnumerator MovementCoroutine()
     {
-
-        if (gameObject.transform.position.x >= 3.6f)
+        Debug.Log("Cube Move");
+        if (size == 3 && gameObject.transform.position.x >= 3.6f || size == 2 && gameObject.transform.position.x >= 4.75f || size == 1 && gameObject.transform.position.x >= 5.9f)
         {
             direction = -1;
         }

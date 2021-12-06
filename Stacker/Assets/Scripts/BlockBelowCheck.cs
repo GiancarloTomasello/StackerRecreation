@@ -33,13 +33,13 @@ public class BlockBelowCheck : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Below Check Entered!");
+       // Debug.Log("Below Check Entered!");
         isBlockBelow = true;
     }
 
     void OnTriggerExit(Collider other)
     {
-        Debug.Log("Block Check Exit!");
+      //  Debug.Log("Block Check Exit!");
         isBlockBelow = false;
     }
 

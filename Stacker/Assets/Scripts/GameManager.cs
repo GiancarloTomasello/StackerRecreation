@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public GameObject cubeSpawner;
     private CubeSpawner spawnerScript;
 
+    public GameObject gameMenuLostUI;
     public GameObject gameMenuUI;
     public GameObject gameMenuLargeUI;
 
@@ -25,6 +26,10 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("GameStart is run");
+
+        Time.timeScale = 1f;
+
         sPrizeHeight = 8;
         lPrizeHeight = 12;
         winHeight = sPrizeHeight;
@@ -37,6 +42,10 @@ public class GameManager : MonoBehaviour
         spawnerScript = cubeSpawner.GetComponent<CubeSpawner>();
         //Start game loop coroutine
         StartCoroutine(GameLoop());
+    }
+
+    void Awake() {
+        Debug.Log("Game Awake is Run");
     }
 
     private IEnumerator GameStarting()
@@ -57,13 +66,13 @@ public class GameManager : MonoBehaviour
        
         while (score < winHeight && size > 0)
         {
-            Debug.Log("Score: " + score + " winHeight: " + winHeight);
+            //Debug.Log("Score: " + score + " winHeight: " + winHeight);
             yield return null;
         }
 
         controlsEnabled = false;
 
-        Debug.Log("Game playing done");
+       // Debug.Log("Game playing done");
         yield return waitTime;
     }
 
@@ -81,9 +90,10 @@ public class GameManager : MonoBehaviour
             gameMenuLargeUI.SetActive(true);
         } else
         {
+            gameMenuLostUI.SetActive(true);
             Debug.Log("Game Lost");
         }
-        Debug.Log("Game End done");
+       // Debug.Log("Game End done");
         yield return null;
     }
 
@@ -131,6 +141,6 @@ public class GameManager : MonoBehaviour
 
 
         }
-        Debug.Log(size);
+
     }
 }
