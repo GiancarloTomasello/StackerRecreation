@@ -9,8 +9,12 @@ public class GameManager : MonoBehaviour
     public GameObject cubeSpawner;
     private CubeSpawner spawnerScript;
 
+    public GameObject gameMenuUI;
+    public GameObject gameMenuLargeUI;
+
     public int sPrizeHeight;
     public int lPrizeHeight;
+    public int winHeight;
 
     private float waitTime;
 
@@ -21,14 +25,14 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        sPrizeHeight = 6;
+        sPrizeHeight = 8;
         lPrizeHeight = 12;
+        winHeight = sPrizeHeight;
         waitTime = 0.5f;
         score = 0;
         size = 3;
 
         controlsEnabled = true;
-
 
         spawnerScript = cubeSpawner.GetComponent<CubeSpawner>();
         //Start game loop coroutine
@@ -38,7 +42,10 @@ public class GameManager : MonoBehaviour
     private IEnumerator GameStarting()
     {
         // Spawn Cube and disable controls
-        spawnerScript.SpawnCube(size);
+        if(score < 1)
+        {
+            spawnerScript.SpawnCube(size);
+        }
         Debug.Log("Game Start done");
         yield return waitTime;
         
@@ -47,22 +54,31 @@ public class GameManager : MonoBehaviour
     private IEnumerator GamePlaying()
     {
         //Handle spawning
-        while (score < sPrizeHeight && size > 0)
+       
+        while (score < winHeight && size > 0)
         {
+            Debug.Log("Score: " + score + " winHeight: " + winHeight);
             yield return null;
         }
+
         controlsEnabled = false;
 
         Debug.Log("Game playing done");
         yield return waitTime;
     }
 
+
     private IEnumerator GameEnding()
     {
         //Bring up end screen
-        if(score == sPrizeHeight)
+        if (score == sPrizeHeight)
         {
-            Debug.Log("Game Lost");
+            Debug.Log("Game Won Small Prize");
+            gameMenuUI.SetActive(true);
+        } else if (score == lPrizeHeight) 
+        {
+            Debug.Log("Game Won Large Prize");
+            gameMenuLargeUI.SetActive(true);
         } else
         {
             Debug.Log("Game Lost");
@@ -77,9 +93,25 @@ public class GameManager : MonoBehaviour
         yield return StartCoroutine(GamePlaying());
         yield return StartCoroutine(GameEnding());
 
-       // Debug.Log("Game Loop done");
+
+        gameMenuUI.SetActive(true);
+        Time.timeScale = 0f;
+        // Debug.Log("Game Loop done");
 
     }
+
+    public void ContinueGame()
+    {
+        winHeight = lPrizeHeight;
+        controlsEnabled = true;
+        gameMenuUI.SetActive(false); 
+        Time.timeScale = 1f;
+
+       StartCoroutine(GameLoop());
+
+
+    }
+
 
 
     // Update is called once per frame
@@ -87,6 +119,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && controlsEnabled)
         {
+
             //Remove any cubed if needed
             size -= spawnerScript.RemoveCubes();
             score++;
