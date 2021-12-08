@@ -52,7 +52,11 @@ public class CubeGridMovement : MonoBehaviour
     //The main movement logic will be covered in this functions
     IEnumerator MovementCoroutine()
     {
-        Debug.Log("Cube Move");
+        if (canMove == false)
+        {
+            yield return new WaitForSeconds(0);
+        }
+        
         if (size == 3 && gameObject.transform.position.x >= 3.6f || size == 2 && gameObject.transform.position.x >= 4.75f || size == 1 && gameObject.transform.position.x >= 5.9f)
         {
             direction = -1;
@@ -81,12 +85,17 @@ public class CubeGridMovement : MonoBehaviour
         }
     }
 
+    public void StopMovement()
+    {
+        StopCoroutine(MovementCoroutine());
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             canMove = false;
-            //cubeSpawner.CheckCubes();
+            StopMovement();
         }
     }
 

@@ -1,0 +1,2 @@
+-Ocassionally the game will get stuck and clicking continue will do nothing
+-Even when block removal conditions are met, block remains. Happens on the Small Prize line

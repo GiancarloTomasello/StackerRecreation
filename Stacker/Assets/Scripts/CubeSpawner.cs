@@ -99,22 +99,27 @@ public class CubeSpawner : MonoBehaviour
     {
         int cubesRemoved = 0;
 
+       // spawnedObj.GetComponent<CubeGridMovement>(). 
 
-        for(int i = 0; i < blockCheckers.Length; i++)
+
+        for (int i = 0; i < blockCheckers.Length; i++)
         {
 
-            //Debug.Log("Block Below Check: " + blockCheckers[i].GetComponent<BlockBelowCheck>().getIsBlockBelow());
+            //Debug.Log("Block Below Check at" + i + " = " + blockCheckers[i].GetComponent<BlockBelowCheck>().getIsBlockBelow());
+            Debug.Log("FirstCheck ==" + firstCheck);
 
             if (firstCheck == false && blockCheckers[i].GetComponent<BlockBelowCheck>().getIsBlockBelow() == false)
             {
+                Debug.Log("Remove block at position: " + i);
                 Destroy(spawnedObj.transform.GetChild(i).gameObject);
                 cubesRemoved++;
             }
 
-            Destroy(blockCheckers[i]);
+            //Destroy(blockCheckers[i]);
         }
 
         firstCheck = false;
+        Debug.Log(cubesRemoved);
 
         return cubesRemoved;
     }

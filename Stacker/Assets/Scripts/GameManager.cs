@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
     }
 
     void Awake() {
-        Debug.Log("Game Awake is Run");
+
     }
 
     private IEnumerator GameStarting()
@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
         {
             spawnerScript.SpawnCube(size);
         }
-        Debug.Log("Game Start done");
+
         yield return waitTime;
         
     }
@@ -82,16 +82,16 @@ public class GameManager : MonoBehaviour
         //Bring up end screen
         if (score == sPrizeHeight)
         {
-            Debug.Log("Game Won Small Prize");
+
             gameMenuUI.SetActive(true);
         } else if (score == lPrizeHeight) 
         {
-            Debug.Log("Game Won Large Prize");
+
             gameMenuLargeUI.SetActive(true);
         } else
         {
             gameMenuLostUI.SetActive(true);
-            Debug.Log("Game Lost");
+
         }
        // Debug.Log("Game End done");
         yield return null;
@@ -116,6 +116,8 @@ public class GameManager : MonoBehaviour
         controlsEnabled = true;
         gameMenuUI.SetActive(false); 
         Time.timeScale = 1f;
+
+        Debug.Log("Game Continue");
 
        StartCoroutine(GameLoop());
 
